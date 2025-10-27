@@ -1,4 +1,4 @@
-# my-llm-api
+# brud-llm-api
 
 Minimal FastAPI wrapper that proxies requests to a model server inside the container.
 
