@@ -1,23 +1,16 @@
-# main.py
 from fastapi import FastAPI
-from pydantic import BaseModel
+from transformers import pipeline
 
-app = FastAPI(title="Brud LLM API")
+app = FastAPI()
 
-# Data model for chat input
-class ChatRequest(BaseModel):
-    prompt: str
+# Small open-source model
+generator = pipeline("text-generation", model="distilgpt2")
 
 @app.get("/")
 def home():
-    return {"message": "Brud LLM API is running successfully!"}
+    return {"message": "Welcome to Brud LLM API!"}
 
-@app.post("/chat")
-def chat(request: ChatRequest):
-    user_input = request.prompt
-    # Simple dummy model logic (you can replace with LLM later)
-    if "code" in user_input.lower():
-        response = "Sure! I can help you with Python coding examples."
-    else:
-        response = f"You said: {user_input}"
-    return {"reply": response}
+@app.post("/generate/")
+def generate_text(prompt: str):
+    result = generator(prompt, max_length=100, num_return_sequences=1)
+    return {"prompt": prompt, "response": result[0]['generated_text']}

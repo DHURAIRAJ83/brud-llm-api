@@ -1,16 +1,16 @@
 # brud-llm-api
 
-Minimal FastAPI wrapper that proxies requests to a model server inside the container.
+A simple LLM API using Hugging Face Transformers.
 
 ## Deploy flow
 1. Push this repo to GitHub.
 2. Connect the repo to Railway (Deploy from GitHub).
-3. Set Railway Environment Variables:
-   - API_KEY : (your secret)
-   - MODEL_NAME : optional model tag (default phi3:mini)
-   - INTERNAL_MODEL_API : optional override for model server URL
+3. Set Railway Environment Variables (none required for basic use).
 
 ## Endpoints
-POST /generate
-Headers: x-api-key: <API_KEY>
-Body: { "prompt": "text", "max_tokens": 150 }
+GET /
+Returns welcome message.
+
+POST /generate/
+Body: {"prompt": "your text"}
+Returns generated text using distilgpt2 model.
